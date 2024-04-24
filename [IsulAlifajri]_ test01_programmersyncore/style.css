@@ -1,0 +1,20 @@
+*{
+    padding: 0;
+    margin:0;
+    outline:0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+body, html{
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+    background: #1c1818;
+    color: rgb(231, 222, 222);
+}
+.container{
+    margin-top: 30px;
+    padding:20px;
+}
+span.text-underline{
+    text-decoration: underline;
+}
