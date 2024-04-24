@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthenticationController;
 
 /*
@@ -34,7 +35,13 @@ Route::group(['middleware' => 'guest'], function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::put('/profile/{id}', [ProfileController::class, 'updateprofile'])->name('profile.update');
-    Route::put('/password/{id}', [ProfileController::class, 'updatepassword'])->name('profile.password');
+});
+
+Route::group(['middleware' => ['auth', 'admin']], function () {
+   
+    //route users
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/data', [UserController::class, 'dataUsers'])->name('users.data');
+    Route::get('users/{id}', [UserController::class, 'userDetail'])->name('users.detail');
+    
 });

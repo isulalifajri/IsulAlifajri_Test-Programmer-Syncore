@@ -11,9 +11,14 @@
             <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" aria-current="page" href="{{ url('/') }}">Home</a>
           </li>
 
-          @can('admin')
+          @auth
+          <li class="nav-item">
+            <a class="nav-link {{ Request::is('riwayat*') ? 'active' : '' }}" aria-current="page" href="#">Data Diri</a>
+          </li>
+          @endauth
+          @can('admin')  
             <li class="nav-item">
-              <a class="nav-link {{ Request::is('orders*') ? 'active' : '' }}" aria-current="page" href="#">Order</a>
+              <a class="nav-link {{ Request::is('users*') ? 'active' : '' }}" aria-current="page" href="{{ route('users.index') }}">List Users</a>
             </li>
           @endcan
         </ul>
@@ -26,7 +31,7 @@
                 <button class="btn pe-0"><i class="fa-solid fa-user text-light"></i></button>
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{{ route('profile.index') }}"><i class="bi bi-layout-text-sidebar-reverse"></i> Profile</a></li>
+                <li><a class="dropdown-item" href="#"><i class="bi bi-layout-text-sidebar-reverse"></i> Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
                   <form action="/logout" method="POST">

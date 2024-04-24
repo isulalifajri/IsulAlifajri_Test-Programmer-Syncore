@@ -17,7 +17,7 @@
         }
     @endphp
     @auth
-        <h5>Halo, {{ $greet }} {{  auth()->user()->username  }} as Admin</h5>
+        <h5>Halo, {{ $greet }} {{  auth()->user()->username  }}  @can('admin') as Admin @endcan</h5>
     @else
         <h5>Halo, {{ $greet }} </h5>
     @endauth
