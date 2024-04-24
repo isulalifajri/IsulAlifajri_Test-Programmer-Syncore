@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEST II – SQL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h3>
+          1.  Menampilkan data member yang berada pada provinsi sumatera utara dan dalam satu kabupaten
+        </h3>
+        <span class="text-underline">Jawab</span>
+        <p>
+            - Menggunakan Metode Elequent laravel <br>
+
+            $members = Member::where('id_provinsi', 2)
+                ->orWhereHas('instansi.kecamatan.kabupaten', function ($query) {
+                    $query->where('id', 11.05);
+                })
+                ->orderBy('created_at', 'DESC')
+                ->paginate(5);
+            
+        </p>
+        <h3>
+          2. Menampilkan data provinsi yang tidak ada dalam data member
+        </h3>
+        <span class="text-underline">Jawab</span>
+        <p>
+
+         - Menggunakan Metode Elequent laravel <br>
+
+          $provinsis = Provinsi::whereNotIn('id', function ($query) {
+            $query->select('id_provinsi')
+                ->from('members')
+                ->distinct();
+        })
+        ->get();
+        </p>
+        <h3>
+          3. Menampilkan data kabupaten yang tidak ada dalam data member
+        </h3>
+        <span class="text-underline">Jawab</span>
+        <p>
+          - Menggunakan Metode Elequent laravel <br>
+          $kabupatens = Kabupaten::whereNotIn('id', function ($query) {
+            $query->select('id_kabupaten')
+                ->from('members')
+                ->distinct();
+        })
+        ->get();
+        </p>
+
+        <h3>
+          4. Menampilkan data kecamatan yang tidak ada dalam data member
+        </h3>
+        <span class="text-underline">Jawab</span>
+        <p>
+
+          - Menggunakan Metode Elequent laravel <br>
+          $kecamantans = Kecamatan::whereNotIn('id', function ($query) {
+            $query->select('id_kecamatan')
+                ->from('members')
+                ->distinct();
+        })
+        ->get();
+        </p>
+        <h3>
+          5. Menampilkan nama member yang terdapat di Kab. Simalungun
+        </h3>
+        <span class="text-underline">Jawab</span>
+        <p>
+
+          - Menggunakan Metode Elequent laravel <br>
+          $members = Member::where('id_kabupaten', 354)
+          ->orderBy('created_at', 'DESC')
+          ->paginate(5);
+        </p>
+        <h3>
+          6. Menampilkan jumlah data instansi pada Kab. Bireuen dan Kab. Bener Meriah
+        </h3>
+        <span class="text-underline">Jawab</span>
+        <p>
+          - Menggunakan Metode Elequent laravel <br>
+          $count = Member::where('id_kabupaten', 302)
+               ->orWhere('id_kabupaten', 330)
+               ->count();
+          
+        </p>
+        <h3>
+          7. Menampilkan data member yang berawalan huruf “M”
+        </h3>
+        <span class="text-underline">Jawab</span>
+        <p>
+          $members = Member::where('name', 'like', '%M%')->get();
+        </p>
+        <h3>
+          8. Menampilkan alamat email yang mempunyai karakter “no” dan terdapat di provinsi Sumatera Utara
+        </h3>
+        <span class="text-underline">Jawab</span>
+        <p>
+          $members = Member::where('email', 'like', '%no%')
+          ->orWhere('id_provinsi', 2)
+          ->get();
+        </p>
+        <h3>
+          9. Menampilkan data member yang mempunyai kode instansi “2004”
+        </h3>
+        <span class="text-underline">Jawab</span>
+        <p>
+          $members = Member::where('kode_instansi', 'like', '%2004%')
+          ->get();
+        </p>
+        <h3>
+          10. Menampilkan data member yang mempunyai karakter kode kecamatan “.08.”
+        </h3>
+        <span class="text-underline">Jawab</span>
+        <p>
+          $members = Member::where('id_kecamatan', 'like', '%80%')
+          ->get();
+        </p>
+
+
+        
+
+    </div>
+</body>
+</html>
